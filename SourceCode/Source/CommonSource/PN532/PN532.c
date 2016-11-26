@@ -70,7 +70,7 @@ uint8_t PN532_WRiteReg(uint8_t data,uint8_t RegAdd) {
   
   /* Wait until TC flag is set */
   mpu6050_Timeout = mpu6050_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(I2C2, I2C_FLAG_TC) == RESET) {
+  while(I2C_GetFlagStatus(I2C2, I2C_FLAG_BTF) == RESET) {
     if((mpu6050_Timeout--) == 0) {
       //USART_print(" error3 ");
     }
@@ -83,7 +83,7 @@ uint8_t PN532_WRiteReg(uint8_t data,uint8_t RegAdd) {
   
   /* Wait until TC flag is set */
   mpu6050_Timeout = mpu6050_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(I2C2, I2C_FLAG_TC) == RESET) {
+  while(I2C_GetFlagStatus(I2C2, I2C_FLAG_BTF) == RESET) {
     if((mpu6050_Timeout--) == 0) {
       //USART_print(" error3 ");
     }
@@ -115,11 +115,11 @@ uint8_t PN532_ReadReg(uint8_t RegAdd) {
 #endif
   
   /* Configure slave address, nbytes, reload, end mode and start or stop generation */
-  I2C_TransferHandling(I2C2, RTC_address, 1, I2C_SoftEnd_Mode, I2C_Generate_Start_Write);
+  //I2C_TransferHandling(I2C2, RTC_address, 1, I2C_SoftEnd_Mode, I2C_Generate_Start_Write);
 
   /* Wait until TXIS flag is set */
   mpu6050_Timeout = mpu6050_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(I2C2, I2C_FLAG_TXIS) == RESET) {
+  while(I2C_GetITStatus(I2C2, I2C_IT_TXE) == RESET) {
     if((mpu6050_Timeout--) == 0) {
       //USART_print(" error2 ");
     }
@@ -130,14 +130,14 @@ uint8_t PN532_ReadReg(uint8_t RegAdd) {
 
   /* Wait until TC flag is set */
   mpu6050_Timeout = mpu6050_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(I2C2, I2C_FLAG_TC) == RESET) {
+  while(I2C_GetFlagStatus(I2C2, I2C_FLAG_BTF) == RESET) {
     if((mpu6050_Timeout--) == 0) {
       //USART_print(" error3 ");
     }
   }
 
   /* Configure slave address, nbytes, reload, end mode and start or stop generation */
-  I2C_TransferHandling(I2C2, RTC_address, 1, I2C_AutoEnd_Mode, I2C_Generate_Start_Read);
+  //I2C_TransferHandling(I2C2, RTC_address, 1, I2C_AutoEnd_Mode, I2C_Generate_Start_Read);
 
   /* Reset local variable */
   DataNum = 0;
@@ -168,7 +168,7 @@ uint8_t PN532_ReadReg(uint8_t RegAdd) {
   }
 
   /* Clear STOPF flag */
-  I2C_ClearFlag(I2C2, I2C_ICR_STOPCF);
+  I2C_ClearFlag(I2C2, I2C_FLAG_STOPF);
 
 
   // !< Store LM75_I2C received data

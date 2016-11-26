@@ -33,7 +33,8 @@ extern "C" {
 #endif
 
 /* Includes */
-#include "HAL_MPU6050.h"
+#include "hal_Types.h"
+#include "MPU6050/MPU6050_Hal.h"
 
 #define MPU6050_ADDRESS_AD0_LOW     0x68 // address pin low (GND), default for InvenSense evaluation board
 #define MPU6050_ADDRESS_AD0_HIGH    0x69 // address pin high (VCC)
@@ -389,7 +390,7 @@ extern "C" {
 #define MPU6050_DMP_MEMORY_CHUNK_SIZE   16
 
 void MPU6050_Initialize();
-bool MPU6050_TestConnection();
+uint8_t MPU6050_TestConnection();
 
 // GYRO_CONFIG register
 uint8_t MPU6050_GetFullScaleGyroRange();
@@ -399,7 +400,7 @@ uint8_t MPU6050_GetFullScaleAccelRange();
 void MPU6050_SetFullScaleAccelRange(uint8_t range);
 
 // PWR_MGMT_1 register
-bool MPU6050_GetSleepModeStatus();
+uint8_t MPU6050_GetSleepModeStatus();
 void MPU6050_SetSleepModeStatus(FunctionalState NewState);
 void MPU6050_SetClockSource(uint8_t source);
 // WHO_AM_I register

@@ -28,6 +28,8 @@
 /* Includes */
 #include "MPU6050.h"
 #include "stm32f10x_i2c.h"
+#include "stm32f10x_gpio.h"
+#include "stm32f10x_rcc.h"
 
 /** @defgroup MPU6050_Library
  * @{
@@ -52,7 +54,7 @@ void MPU6050_Initialize()
  * Make sure the device is connected and responds as expected.
  * @return True if connection is valid, FALSE otherwise
  */
-bool MPU6050_TestConnection()
+uint8_t MPU6050_TestConnection()
 {
     return MPU6050_GetDeviceID() == 0x34 ? TRUE : FALSE; //0b110100; 8-bit representation in hex = 0x34
 }
@@ -190,7 +192,7 @@ void MPU6050_SetFullScaleAccelRange(uint8_t range)
  * @see MPU6050_RA_PWR_MGMT_1
  * @see MPU6050_PWR1_SLEEP_BIT
  */
-bool MPU6050_GetSleepModeStatus()
+uint8_t MPU6050_GetSleepModeStatus()
 {
     uint8_t tmp;
     MPU6050_ReadBit(MPU6050_DEFAULT_ADDRESS, MPU6050_RA_PWR_MGMT_1, MPU6050_PWR1_SLEEP_BIT, &tmp);

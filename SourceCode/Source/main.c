@@ -16,7 +16,7 @@
 int main() {
   initSysLed();
   initSysTick();
-  initPN532();
+  //initPN532();
   
   
   while(1) {
