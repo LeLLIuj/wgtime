@@ -12,11 +12,8 @@ I2C2	I2C	I2C2_SCL	PB10
 I2C2	I2C	I2C2_SDA	PB11
 RCC	Crystal/Ceramic Resonator	RCC_OSC_IN	PD0-OSC_IN
 RCC	Crystal/Ceramic Resonator	RCC_OSC_OUT	PD1-OSC_OUT
-RTC	Activate Clock Source	RTC_VS_RTC_Activate	VP_RTC_VS_RTC_Activate
-RTC	No RTC Output	RTC_No_RTC_Output	VP_RTC_No_RTC_Output
 SYS	No Debug	SYS_VS_ND	VP_SYS_VS_ND
-SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
-TIM1	Internal Clock	TIM1_VS_ClockSourceINT	VP_TIM1_VS_ClockSourceINT
+SYS	TIM1	SYS_VS_tim1	VP_SYS_VS_tim1
 USART2	Synchronous	USART2_CK	PA4
 USART2	Synchronous	USART2_RX	PA3
 USART2	Synchronous	USART2_TX	PA2
