@@ -44,18 +44,30 @@
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
 #include "task.h"
+#include "cmsis_os.h"
 
 /* USER CODE BEGIN Includes */     
 
 /* USER CODE END Includes */
 
 /* Variables -----------------------------------------------------------------*/
+osThreadId defaultTaskHandle;
+osThreadId tskDisplayHandle;
+osThreadId tskTradeTimeHandle;
+osThreadId tskGyroscopeHandle;
+osMessageQId gyroscopeBufferHandle;
 
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
 
 /* Function prototypes -------------------------------------------------------*/
+void StartDefaultTask(void const * argument);
+extern void taskStartDisplay(void const * argument);
+extern void taskStartTradeTime(void const * argument);
+extern void taskStartGyroscope(void const * argument);
+
+void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /* USER CODE BEGIN FunctionPrototypes */
 
@@ -78,6 +90,69 @@ __weak void vApplicationIdleHook( void )
    memory allocated by the kernel to any task that has since been deleted. */
 }
 /* USER CODE END 2 */
+
+/* Init FreeRTOS */
+
+void MX_FREERTOS_Init(void) {
+  /* USER CODE BEGIN Init */
+       
+  /* USER CODE END Init */
+
+  /* USER CODE BEGIN RTOS_MUTEX */
+  /* add mutexes, ... */
+  /* USER CODE END RTOS_MUTEX */
+
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* add semaphores, ... */
+  /* USER CODE END RTOS_SEMAPHORES */
+
+  /* USER CODE BEGIN RTOS_TIMERS */
+  /* start timers, add new ones, ... */
+  /* USER CODE END RTOS_TIMERS */
+
+  /* Create the thread(s) */
+  /* definition and creation of defaultTask */
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
+  /* definition and creation of tskDisplay */
+  osThreadDef(tskDisplay, taskStartDisplay, osPriorityNormal, 0, 128);
+  tskDisplayHandle = osThreadCreate(osThread(tskDisplay), NULL);
+
+  /* definition and creation of tskTradeTime */
+  osThreadDef(tskTradeTime, taskStartTradeTime, osPriorityHigh, 0, 128);
+  tskTradeTimeHandle = osThreadCreate(osThread(tskTradeTime), NULL);
+
+  /* definition and creation of tskGyroscope */
+  osThreadDef(tskGyroscope, taskStartGyroscope, osPriorityNormal, 0, 128);
+  tskGyroscopeHandle = osThreadCreate(osThread(tskGyroscope), NULL);
+
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* add threads, ... */
+  /* USER CODE END RTOS_THREADS */
+
+  /* Create the queue(s) */
+  /* definition and creation of gyroscopeBuffer */
+  osMessageQDef(gyroscopeBuffer, 10, uint16_t);
+  gyroscopeBufferHandle = osMessageCreate(osMessageQ(gyroscopeBuffer), NULL);
+
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
+}
+
+/* StartDefaultTask function */
+void StartDefaultTask(void const * argument)
+{
+
+  /* USER CODE BEGIN StartDefaultTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartDefaultTask */
+}
 
 /* USER CODE BEGIN Application */
      
