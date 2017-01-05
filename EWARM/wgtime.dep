@@ -2,7 +2,7 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>3922736280</fileChecksum>
+  <fileChecksum>373262325</fileChecksum>
   <configuration>
     <name>wgtime</name>
     <outputs>
@@ -208,6 +208,8 @@
       <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
       <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h</file>
       <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$PROJ_DIR$\wgtime\Exe\wgtime_firmware.bin</file>
+      <file>$PROJ_DIR$\wgtime\Exe\wgtime.bin</file>
     </outputs>
     <file>
       <name>[ROOT_NODE]</name>
@@ -310,6 +312,10 @@
       </outputs>
       <inputs>
         <tool>
+          <name>ICCARM</name>
+          <file> 196 165 139 180 173 181 136 149 175 201 174 182 138 154 191 134 155 171 156 135 169 199 200 198 192 157 193 158</file>
+        </tool>
+        <tool>
           <name>BICOMP</name>
           <file> 173 171 200 193 174 175 180 155 198 192 154 149 138 156 139 196 135 165 182 191 201 181 136 134 169 157 158 199</file>
         </tool>
@@ -332,10 +338,6 @@
           <name>ICCARM</name>
           <file> 132 142 160 138 150 167 147 172 143 174 139 180 173 181 136 149 175 148 199 171 169 176 145 152 201 144 141 177 197 153 195 170 140 168 194 137 179 151 190 178 146 183</file>
         </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 148 167 136 138 143 152 142 180 139 141 147 174 181 199 201 183 160 150 177 153 170 140 168 137 179 151 178 146 145 172 176 169 173 149 175 171 144 197 132 195 194 190</file>
-        </tool>
       </inputs>
     </file>
     <file>
@@ -351,6 +353,10 @@
         </tool>
       </outputs>
       <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 196 165 139 180 173 181 136 149 175 201 174 182 138 154 191 134 155 171 156 135 169 199 200 198 192 157 193 158</file>
+        </tool>
         <tool>
           <name>BICOMP</name>
           <file> 173 171 200 193 174 175 180 155 198 192 154 149 138 156 139 196 135 165 182 191 201 181 136 134 169 157 158 199</file>
@@ -438,6 +444,16 @@
           <file> 123</file>
         </tool>
       </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 196 165 139 180 173 181 136 149 175 201 174 182 138 154 191 134 155 171 156 135 169 199 200 198 192 157 193 158</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 173 171 200 193 174 175 180 155 198 192 154 149 138 156 139 196 135 165 182 191 201 181 136 134 169 157 158 199</file>
+        </tool>
+      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_crc.c</name>
@@ -589,6 +605,16 @@
           <file> 124</file>
         </tool>
       </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 196 165 139 180 173 181 136 149 175 201 174 182 138 154 191 134 155 171 156 135 169 199 200 198 192 157 193 158</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 173 171 200 193 174 175 180 155 198 192 154 149 138 156 139 196 135 165 182 191 201 181 136 134 169 157 158 199</file>
+        </tool>
+      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_wwdg.c</name>
@@ -1071,6 +1097,10 @@
         <tool>
           <name>ILINK</name>
           <file> 189</file>
+        </tool>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 203 202</file>
         </tool>
       </outputs>
       <inputs>
