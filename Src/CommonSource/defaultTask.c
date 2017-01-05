@@ -1,4 +1,5 @@
-
+#include "FreeRTOS.h"
+#include "cmsis_os.h"
 
 /* StartDefaultTask function */
 void StartDefaultTask(void const * argument)
