@@ -85,7 +85,15 @@ void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 2 */
+/* Set Led On */
+void BoardLedOn(void) {
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+}
 
+/* Set Led Off */
+void BoardLedOff(void) {
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+}
 /* USER CODE END 2 */
 
 /**
