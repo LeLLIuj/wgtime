@@ -108,7 +108,7 @@ void HAL_RTC_MspDeInit(RTC_HandleTypeDef* rtcHandle)
  *@brief get RTC date in the seconds
  *@return RTC seconds
  */
-uint32_t getRtcDateInSecondsTime(void) {
+uint32_t getRtcDateInSeconds(void) {
   return HAL_RTC_ReadTimeCounter(&hrtc);
 }
 
@@ -116,7 +116,7 @@ uint32_t getRtcDateInSecondsTime(void) {
  *@brief set RTC date in the seconds
  *@return RTC seconds
  */
-void setRtcDateInSecondsTime(uint32_t seconds) {
+void setRtcDateInSeconds(uint32_t seconds) {
   HAL_RTC_WriteTimeCounter(&hrtc, seconds);
 }
 

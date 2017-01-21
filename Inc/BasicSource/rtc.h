@@ -75,8 +75,8 @@ extern void Error_Handler(void);
 void MX_RTC_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-uint32_t getRtcDateInSecondsTime(void);
-void setRtcDateInSecondsTime(uint32_t seconds);
+uint32_t getRtcDateInSeconds(void);
+void setRtcDateInSeconds(uint32_t seconds);
 
 /* USER CODE END Prototypes */
 
