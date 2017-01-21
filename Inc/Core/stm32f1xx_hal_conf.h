@@ -74,7 +74,7 @@
 /*#define HAL_SD_MODULE_ENABLED   */
 /*#define HAL_SDRAM_MODULE_ENABLED   */
 /*#define HAL_SMARTCARD_MODULE_ENABLED   */
-/*#define HAL_SPI_MODULE_ENABLED   */
+#define HAL_SPI_MODULE_ENABLED
 /*#define HAL_SRAM_MODULE_ENABLED   */
 #define HAL_TIM_MODULE_ENABLED
 /*#define HAL_UART_MODULE_ENABLED   */
@@ -204,7 +204,7 @@
   */
 
 #ifdef HAL_RCC_MODULE_ENABLED
- #include "stm32f1xx_hal_rcc.h"
+ #include "stm32f1xx_hal_rtc_with_raw_functions.h"
 #endif /* HAL_RCC_MODULE_ENABLED */
 
 #ifdef HAL_GPIO_MODULE_ENABLED

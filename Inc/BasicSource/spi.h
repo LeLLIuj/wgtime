@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : RTC.c
+  * File Name          : SPI.h
   * Description        : This file provides code for the configuration
-  *                      of the RTC instances.
+  *                      of the SPI instances.
   ******************************************************************************
   *
   * Copyright (c) 2017 STMicroelectronics International N.V. 
@@ -41,87 +41,40 @@
   *
   ******************************************************************************
   */
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __spi_H
+#define __spi_H
+#ifdef __cplusplus
+ extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "rtc.h"
+#include "stm32f1xx_hal.h"
+#include "main.h"
 
-/* USER CODE BEGIN 0 */
+/* USER CODE BEGIN Includes */
 
-/* USER CODE END 0 */
+/* USER CODE END Includes */
 
-RTC_HandleTypeDef hrtc;
+extern SPI_HandleTypeDef hspi1;
 
-/* RTC init function */
-void MX_RTC_Init(void)
-{
+/* USER CODE BEGIN Private defines */
 
-    /**Initialize RTC Only 
-    */
-  hrtc.Instance = RTC;
-  hrtc.Init.AsynchPrediv = RTC_AUTO_1_SECOND;
-  hrtc.Init.OutPut = RTC_OUTPUTSOURCE_ALARM;
-  if (HAL_RTC_Init(&hrtc) != HAL_OK)
-  {
-    Error_Handler();
-  }
+/* USER CODE END Private defines */
 
+extern void Error_Handler(void);
+
+void MX_SPI1_Init(void);
+
+/* USER CODE BEGIN Prototypes */
+void SendDataTo7SegDisplay(uint8_t *data, int length);
+
+/* USER CODE END Prototypes */
+
+#ifdef __cplusplus
 }
-
-void HAL_RTC_MspInit(RTC_HandleTypeDef* rtcHandle)
-{
-
-  if(rtcHandle->Instance==RTC)
-  {
-  /* USER CODE BEGIN RTC_MspInit 0 */
-
-  /* USER CODE END RTC_MspInit 0 */
-    HAL_PWR_EnableBkUpAccess();
-    /* Enable BKP CLK enable for backup registers */
-    __HAL_RCC_BKP_CLK_ENABLE();
-    /* Peripheral clock enable */
-    __HAL_RCC_RTC_ENABLE();
-  /* USER CODE BEGIN RTC_MspInit 1 */
-
-  /* USER CODE END RTC_MspInit 1 */
-  }
-}
-
-void HAL_RTC_MspDeInit(RTC_HandleTypeDef* rtcHandle)
-{
-
-  if(rtcHandle->Instance==RTC)
-  {
-  /* USER CODE BEGIN RTC_MspDeInit 0 */
-
-  /* USER CODE END RTC_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_RTC_DISABLE();
-  }
-  /* USER CODE BEGIN RTC_MspDeInit 1 */
-
-  /* USER CODE END RTC_MspDeInit 1 */
-} 
-
-/* USER CODE BEGIN 1 */
-
-/*
- *@brief get RTC date in the seconds
- *@return RTC seconds
- */
-uint32_t getRtcDateInSecondsTime(void) {
-  return HAL_RTC_ReadTimeCounter(&hrtc);
-}
-
-/*
- *@brief set RTC date in the seconds
- *@return RTC seconds
- */
-void setRtcDateInSecondsTime(uint32_t seconds) {
-  HAL_RTC_WriteTimeCounter(&hrtc, seconds);
-}
-
-
-/* USER CODE END 1 */
+#endif
+#endif /*__ spi_H */
 
 /**
   * @}

@@ -190,8 +190,8 @@
 /** @defgroup RTC_Private_Functions RTC Private Functions
   * @{
   */
-uint32_t                  RTC_ReadTimeCounter(RTC_HandleTypeDef* hrtc);
-HAL_StatusTypeDef         RTC_WriteTimeCounter(RTC_HandleTypeDef* hrtc, uint32_t TimeCounter);
+static uint32_t           RTC_ReadTimeCounter(RTC_HandleTypeDef* hrtc);
+static HAL_StatusTypeDef  RTC_WriteTimeCounter(RTC_HandleTypeDef* hrtc, uint32_t TimeCounter);
 static uint32_t           RTC_ReadAlarmCounter(RTC_HandleTypeDef* hrtc);
 static HAL_StatusTypeDef  RTC_WriteAlarmCounter(RTC_HandleTypeDef* hrtc, uint32_t AlarmCounter);
 static HAL_StatusTypeDef  RTC_EnterInitMode(RTC_HandleTypeDef* hrtc);
@@ -465,6 +465,27 @@ __weak void HAL_RTC_MspDeInit(RTC_HandleTypeDef* hrtc)
 @endverbatim
   * @{
   */
+
+/**
+  * @brief  Read the time counter available in RTC_CNT registers.
+  * @param  hrtc   pointer to a RTC_HandleTypeDef structure that contains
+  *                the configuration information for RTC.
+  * @retval Time counter
+  */
+uint32_t HAL_RTC_ReadTimeCounter(RTC_HandleTypeDef* hrtc) {
+  return RTC_ReadTimeCounter(hrtc);
+}
+
+/**
+  * @brief  Write the time counter in RTC_CNT registers.
+  * @param  hrtc   pointer to a RTC_HandleTypeDef structure that contains
+  *                the configuration information for RTC.
+  * @param  TimeCounter: Counter to write in RTC_CNT registers
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_RTC_WriteTimeCounter(RTC_HandleTypeDef* hrtc, uint32_t TimeCounter) {
+  return RTC_WriteTimeCounter(hrtc, TimeCounter);
+}
 
 /**
   * @brief  Sets RTC current time.
@@ -1351,7 +1372,7 @@ HAL_StatusTypeDef HAL_RTC_WaitForSynchro(RTC_HandleTypeDef* hrtc)
   *                the configuration information for RTC.
   * @retval Time counter
   */
-uint32_t RTC_ReadTimeCounter(RTC_HandleTypeDef* hrtc)
+static uint32_t RTC_ReadTimeCounter(RTC_HandleTypeDef* hrtc)
 {
   uint16_t high1 = 0, high2 = 0, low = 0;
   uint32_t timecounter = 0;
@@ -1381,7 +1402,7 @@ uint32_t RTC_ReadTimeCounter(RTC_HandleTypeDef* hrtc)
   * @param  TimeCounter: Counter to write in RTC_CNT registers
   * @retval HAL status
   */
-HAL_StatusTypeDef RTC_WriteTimeCounter(RTC_HandleTypeDef* hrtc, uint32_t TimeCounter)
+static HAL_StatusTypeDef RTC_WriteTimeCounter(RTC_HandleTypeDef* hrtc, uint32_t TimeCounter)
 {
   HAL_StatusTypeDef status = HAL_OK;
   
@@ -1697,6 +1718,7 @@ static uint8_t RTC_WeekDayNum(uint32_t nYear, uint8_t nMonth, uint8_t nDay)
 
   return (uint8_t)weekday;
 }
+
 
 /**
   * @}

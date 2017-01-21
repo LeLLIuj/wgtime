@@ -302,6 +302,9 @@ void              HAL_DBGMCU_DisableDBGStopMode(void);
 void              HAL_DBGMCU_EnableDBGStandbyMode(void);
 void              HAL_DBGMCU_DisableDBGStandbyMode(void);
 
+uint32_t                HAL_RTC_ReadTimeCounter(RTC_HandleTypeDef* hrtc);
+HAL_StatusTypeDef       HAL_RTC_WriteTimeCounter(RTC_HandleTypeDef* hrtc, uint32_t TimeCounter);
+
 /**
   * @}
   */

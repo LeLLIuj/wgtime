@@ -381,7 +381,7 @@
         </option>
         <option>
           <name>IccLang</name>
-          <state>0</state>
+          <state>2</state>
         </option>
         <option>
           <name>IccCDialect</name>
@@ -992,6 +992,9 @@
           <name>$PROJ_DIR$\..\Src\BasicSource\crc.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\Src\BasicSource\display.cpp</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\Src\BasicSource\dma.c</name>
         </file>
         <file>
@@ -1005,6 +1008,9 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\Src\BasicSource\rtc.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Src\BasicSource\spi.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\Src\BasicSource\string.c</name>
@@ -1099,6 +1105,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rtc_with_raw_functions.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_spi.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_tim.c</name>
