@@ -43,13 +43,14 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
+#include <stdint.h>
 #include "usart.h"
 
 #include "gpio.h"
 #include "dma.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "string.h"
 /* USER CODE END 0 */
 
 USART_HandleTypeDef husart2;
@@ -169,7 +170,9 @@ void HAL_USART_MspDeInit(USART_HandleTypeDef* usartHandle)
 } 
 
 /* USER CODE BEGIN 1 */
-
+void WriteESP8266(char *data) {
+  HAL_USART_Transmit_DMA(&husart2, (uint8_t *)data, strlen(data));
+}
 /* USER CODE END 1 */
 
 /**

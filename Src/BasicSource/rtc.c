@@ -1,11 +1,11 @@
 /**
   ******************************************************************************
-  * File Name          : USART.h
+  * File Name          : RTC.c
   * Description        : This file provides code for the configuration
-  *                      of the USART instances.
+  *                      of the RTC instances.
   ******************************************************************************
   *
-  * Copyright (c) 2016 STMicroelectronics International N.V. 
+  * Copyright (c) 2017 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -41,39 +41,118 @@
   *
   ******************************************************************************
   */
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __usart_H
-#define __usart_H
-#ifdef __cplusplus
- extern "C" {
-#endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f1xx_hal.h"
-#include "main.h"
+#include "rtc.h"
 
-/* USER CODE BEGIN Includes */
+/* USER CODE BEGIN 0 */
 
-/* USER CODE END Includes */
+/* USER CODE END 0 */
 
-extern USART_HandleTypeDef husart2;
+RTC_HandleTypeDef hrtc;
 
-/* USER CODE BEGIN Private defines */
+/* RTC init function */
+void MX_RTC_Init(void)
+{
 
-/* USER CODE END Private defines */
+    /**Initialize RTC Only 
+    */
+  hrtc.Instance = RTC;
+  hrtc.Init.AsynchPrediv = RTC_AUTO_1_SECOND;
+  hrtc.Init.OutPut = RTC_OUTPUTSOURCE_NONE;
+  if (HAL_RTC_Init(&hrtc) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
-extern void Error_Handler(void);
+    /**Initialize RTC and set the Time and Date 
+    */
 
-void MX_USART2_Init(void);
+/* REMOVE standart init
+  RTC_TimeTypeDef sTime;
+  RTC_DateTypeDef DateToUpdate;
+  
+  sTime.Hours = 0x1;
+  sTime.Minutes = 0x0;
+  sTime.Seconds = 0x0;
 
-/* USER CODE BEGIN Prototypes */
-void WriteESP8266(char *data);
-/* USER CODE END Prototypes */
+  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
-#ifdef __cplusplus
+  DateToUpdate.WeekDay = RTC_WEEKDAY_MONDAY;
+  DateToUpdate.Month = RTC_MONTH_JANUARY;
+  DateToUpdate.Date = 0x1;
+  DateToUpdate.Year = 0x0;
+
+  if (HAL_RTC_SetDate(&hrtc, &DateToUpdate, RTC_FORMAT_BCD) != HAL_OK)
+  {
+    Error_Handler();
+  }
+*/
+
 }
-#endif
-#endif /*__ usart_H */
+
+void HAL_RTC_MspInit(RTC_HandleTypeDef* rtcHandle)
+{
+
+  if(rtcHandle->Instance==RTC)
+  {
+  /* USER CODE BEGIN RTC_MspInit 0 */
+
+  /* USER CODE END RTC_MspInit 0 */
+    HAL_PWR_EnableBkUpAccess();
+    /* Enable BKP CLK enable for backup registers */
+    __HAL_RCC_BKP_CLK_ENABLE();
+    /* Peripheral clock enable */
+    __HAL_RCC_RTC_ENABLE();
+  /* USER CODE BEGIN RTC_MspInit 1 */
+
+  /* USER CODE END RTC_MspInit 1 */
+  }
+}
+
+void HAL_RTC_MspDeInit(RTC_HandleTypeDef* rtcHandle)
+{
+
+  if(rtcHandle->Instance==RTC)
+  {
+  /* USER CODE BEGIN RTC_MspDeInit 0 */
+
+  /* USER CODE END RTC_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_RTC_DISABLE();
+  }
+  /* USER CODE BEGIN RTC_MspDeInit 1 */
+
+  /* USER CODE END RTC_MspDeInit 1 */
+} 
+
+/* USER CODE BEGIN 1 */
+
+// Declare raw functions from rtc hal
+uint32_t          RTC_ReadTimeCounter(RTC_HandleTypeDef* hrtc);
+HAL_StatusTypeDef RTC_WriteTimeCounter(RTC_HandleTypeDef* hrtc, uint32_t TimeCounter);
+
+/*
+ *@brief get RTC date in the seconds
+ *@return RTC seconds
+ */
+uint32_t getRtcDateInSecondsTime(void) {
+  return RTC_ReadTimeCounter(&hrtc);
+}
+
+/*
+ *@brief set RTC date in the seconds
+ *@return RTC seconds
+ */
+void setRtcDateInSecondsTime(uint32_t seconds) {
+  RTC_WriteTimeCounter(&hrtc, seconds);
+}
+
+
+/* USER CODE END 1 */
 
 /**
   * @}

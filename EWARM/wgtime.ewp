@@ -1004,6 +1004,12 @@
           <name>$PROJ_DIR$\..\Src\BasicSource\i2c.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\Src\BasicSource\rtc.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Src\BasicSource\string.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\Src\BasicSource\usart.c</name>
         </file>
         <file>
@@ -1014,6 +1020,9 @@
         <name>CommonSource</name>
         <file>
           <name>$PROJ_DIR$\..\Src\CommonSource\defaultTask.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Src\CommonSource\esp8266.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\Src\CommonSource\tskDisplay.c</name>
@@ -1084,6 +1093,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rcc_ex.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rtc_ex.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rtc_with_raw_functions.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_tim.c</name>

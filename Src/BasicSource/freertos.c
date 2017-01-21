@@ -53,6 +53,7 @@
 /* Variables -----------------------------------------------------------------*/
 osThreadId defaultTaskHandle;
 osThreadId tskDisplayHandle;
+osThreadId tskStartDisplay_StopwatchHandle;
 osThreadId tskTradeTimeHandle;
 osThreadId tskGyroscopeHandle;
 osMessageQId gyroscopeBufferHandle;
@@ -64,6 +65,7 @@ osMessageQId gyroscopeBufferHandle;
 /* Function prototypes -------------------------------------------------------*/
 extern void StartDefaultTask(void const * argument);
 extern void taskStartDisplay(void const * argument);
+extern void taskStartDisplay_Stopwatch(void const * argument);
 extern void taskStartTradeTime(void const * argument);
 extern void taskStartGyroscope(void const * argument);
 
@@ -114,6 +116,10 @@ void MX_FREERTOS_Init(void) {
   /* definition and creation of defaultTask */
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
+  /* definition and creation of tskDisplay */
+  osThreadDef(tskStartDisplay_Stopwatch, taskStartDisplay_Stopwatch, osPriorityRealtime, 0, 32);
+  tskStartDisplay_StopwatchHandle = osThreadCreate(osThread(tskStartDisplay_Stopwatch), NULL);
 
   /* definition and creation of tskDisplay */
   osThreadDef(tskDisplay, taskStartDisplay, osPriorityNormal, 0, 128);

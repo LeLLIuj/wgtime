@@ -1,11 +1,11 @@
 /**
   ******************************************************************************
-  * File Name          : USART.h
+  * File Name          : RTC.h
   * Description        : This file provides code for the configuration
-  *                      of the USART instances.
+  *                      of the RTC instances.
   ******************************************************************************
   *
-  * Copyright (c) 2016 STMicroelectronics International N.V. 
+  * Copyright (c) 2017 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -42,8 +42,8 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __usart_H
-#define __usart_H
+#ifndef __rtc_H
+#define __rtc_H
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -56,24 +56,34 @@
 
 /* USER CODE END Includes */
 
-extern USART_HandleTypeDef husart2;
+extern RTC_HandleTypeDef hrtc;
 
 /* USER CODE BEGIN Private defines */
+
+/* Date struct */
+typedef struct {
+  int  days;
+  char  hour;
+  char  min;
+  char  sec;
+} RTC_Time;
 
 /* USER CODE END Private defines */
 
 extern void Error_Handler(void);
 
-void MX_USART2_Init(void);
+void MX_RTC_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-void WriteESP8266(char *data);
+uint32_t getRtcDateInSecondsTime(void);
+void setRtcDateInSecondsTime(uint32_t seconds);
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ usart_H */
+#endif /*__ rtc_H */
 
 /**
   * @}
