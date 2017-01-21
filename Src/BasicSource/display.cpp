@@ -95,5 +95,5 @@ void ConvertDigitToSymbolsArray(int32_t num, uint8_t *dst) {
 void Display_ShowTime(int32_t seconds) {
   uint8_t dstArray[NUMBER_OF_SYMBOLS] = {0};
   ConvertDigitToSymbolsArray(seconds, &dstArray[0]);
-  SendDataTo7SegDisplay(&dstArray[0], 13);
+  SendDataTo7SegDisplay(&dstArray[0], NUMBER_OF_SYMBOLS);
 }

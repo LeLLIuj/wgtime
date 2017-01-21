@@ -1553,6 +1553,10 @@
       <name>$PROJ_DIR$\..\Src\BasicSource\display.cpp</name>
       <outputs>
         <tool>
+          <name>ICCARM</name>
+          <file> 268</file>
+        </tool>
+        <tool>
           <name>BICOMP</name>
           <file> 267</file>
         </tool>
@@ -1564,7 +1568,7 @@
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 24 73 38 34 116 147 69 149 47 153 33 37 278 64 264 22 146 143 68 144 145 44 142 262 138 127 139 261 152 151 79 62 76 85 41 75 35 56 129 263 203 28 26 27 66</file>
+          <file> 24 85 62 152 73 79 47 68 35 56 151 76 41 75 147 261 153 33 143 37 278 144 116 145 64 44 69 142 264 262 38 138 22 34 149 127 146 139 129 263 203 28 26 27 66</file>
         </tool>
       </inputs>
     </file>
