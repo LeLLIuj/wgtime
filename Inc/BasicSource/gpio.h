@@ -67,6 +67,10 @@ void MX_GPIO_Init(void);
 
 void BoardLedOn(void);
 void BoardLedOff(void);
+
+void setSpiCsHigh(void);
+void setSpiCsLow(void);
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

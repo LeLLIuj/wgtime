@@ -44,6 +44,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "spi.h"
+#include "cmsis_os.h"
 
 #include "gpio.h"
 #include "dma.h"
@@ -152,7 +153,21 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
  *@brief Send data to 7segment display
  */
 void SendDataTo7SegDisplay(uint8_t *data, int length) {
-  HAL_SPI_Transmit_DMA(&hspi1, data, length);
+  for(int i = 0; i < length; ++i) {
+    // Start storage record in 74HC595 register
+    setSpiCsLow();
+    osDelay(1);
+    
+    // Send byte in spi
+    if (HAL_SPI_Transmit(&hspi1, &data[i], 1, 100) != HAL_OK) {
+      break;
+    }
+    osDelay(1);
+ 
+    // Stop storage record in 74HC595 register. Save.
+    setSpiCsHigh();
+    osDelay(1);
+  }
 }
 /* USER CODE END 1 */
 
