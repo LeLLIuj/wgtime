@@ -9,7 +9,7 @@
 void taskStartDisplay(void const * argument)
 {
   // TODO Init RTC to 0 for test
-  setRtcDateInSecondsTime(0);
+  setRtcDateInSeconds(0);
 
   /* USER CODE BEGIN taskStartDisplay */
   /* Infinite loop */
