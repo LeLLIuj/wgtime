@@ -67,7 +67,7 @@ void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -101,7 +101,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
     /* Peripheral DMA init*/
-  
+  /*
     hdma_spi1_tx.Instance = DMA1_Channel3;
     hdma_spi1_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
     hdma_spi1_tx.Init.PeriphInc = DMA_PINC_DISABLE;
@@ -113,9 +113,9 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
     if (HAL_DMA_Init(&hdma_spi1_tx) != HAL_OK)
     {
       Error_Handler();
-    }
+    }*/
 
-    __HAL_LINKDMA(spiHandle,hdmatx,hdma_spi1_tx);
+    //__HAL_LINKDMA(spiHandle,hdmatx,hdma_spi1_tx);
 
   /* USER CODE BEGIN SPI1_MspInit 1 */
 
@@ -158,8 +158,10 @@ void SendDataTo7SegDisplay(uint8_t *data, int length) {
     setSpiCsLow();
     osDelay(1);
     
+    uint8_t symBlock[2] = {data[i], i};
+    
     // Send byte in spi
-    if (HAL_SPI_Transmit(&hspi1, &data[i], 1, 100) != HAL_OK) {
+    if (HAL_SPI_Transmit(&hspi1, &symBlock[0], 2, 100) != HAL_OK) {
       break;
     }
     osDelay(1);
