@@ -33,3 +33,6 @@
 *.su
 
 EWARM/wgtime/*
+EWARM/settings/Project.wsdt
+EWARM/settings/wgtime.dni
+EWARM/wgtime.dep
