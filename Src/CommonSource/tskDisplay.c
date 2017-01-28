@@ -15,10 +15,11 @@ void taskStartDisplay(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    Display_ShowTime(DISPLAY_LIMIT_SHOW - (uint32_t)getRtcDateInSeconds());
+    Display_ShowTime(DISPLAY_LIMIT_SHOW - (uint32_t)getRtcDateInSeconds() );
     
-    osDelay(1000);
+    osDelay(1);
   }
   /* USER CODE END taskStartDisplay */
 }
 
+//

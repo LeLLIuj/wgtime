@@ -9,7 +9,7 @@
 
    
 // Limit 13 numeric symbols
-#define DISPLAY_LIMIT_SHOW (9999999999999L)
+#define DISPLAY_LIMIT_SHOW (12349999L)
 
 // Declare display functions
 void Display_ShowTime(int32_t seconds);
