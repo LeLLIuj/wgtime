@@ -70,6 +70,34 @@ void MX_I2C2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
+
+void MPU6050_Initialize();
+int8_t MPU6050_TestConnection();
+
+// GYRO_CONFIG register
+uint8_t MPU6050_GetFullScaleGyroRange();
+void MPU6050_SetFullScaleGyroRange(uint8_t range);
+// ACCEL_CONFIG register
+uint8_t MPU6050_GetFullScaleAccelRange();
+void MPU6050_SetFullScaleAccelRange(uint8_t range);
+
+// PWR_MGMT_1 register
+int8_t MPU6050_GetSleepModeStatus();
+void MPU6050_SetSleepModeStatus(FunctionalState NewState);
+void MPU6050_SetClockSource(uint8_t source);
+// WHO_AM_I register
+uint8_t MPU6050_GetDeviceID();
+
+void MPU6050_GetRawAccelGyro(int16_t* AccelGyro);
+
+void MPU6050_WriteBits(uint8_t slaveAddr, uint8_t regAddr, uint8_t bitStart, uint8_t length, uint8_t data);
+void MPU6050_WriteBit(uint8_t slaveAddr, uint8_t regAddr, uint8_t bitNum, uint8_t data);
+void MPU6050_ReadBits(uint8_t slaveAddr, uint8_t regAddr, uint8_t bitStart, uint8_t length, uint8_t *data);
+void MPU6050_ReadBit(uint8_t slaveAddr, uint8_t regAddr, uint8_t bitNum, uint8_t *data);
+
+void MPU6050_I2C_Init();
+void MPU6050_I2C_ByteWrite(uint8_t slaveAddr, uint8_t* pBuffer, uint8_t writeAddr);
+void MPU6050_I2C_BufferRead(uint8_t slaveAddr,uint8_t* pBuffer, uint8_t readAddr, uint16_t NumByteToRead);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
