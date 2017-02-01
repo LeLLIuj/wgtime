@@ -45,10 +45,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "spi.h"
 #include "cmsis_os.h"
-
+#include "rtc.h"
 #include "gpio.h"
 #include "dma.h"
-
+#include "display.h"
+    
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
@@ -67,7 +68,7 @@ void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -153,15 +154,35 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
  *@brief Send data to 7segment display
  */
 void SendDataTo7SegDisplay(uint8_t *data, int length) {
-  for(int i = 0; i < length; ++i) {
+  int z=0;
+  int k=0;  
+  for(int i = 0; i < length ; ++i) {
     // Start storage record in 74HC595 register
     setSpiCsLow();
     osDelay(1);
     
-    uint8_t symBlock[2] = {data[i], i};
+    switch (i) {
+     case 0:  z = 128 >> 0; ;  break;
+     case 1:  z = 128 >> 1; /*data[i] =~0x3f;*/  break; 
+     case 2:  z = 128 >> 2; /*data[i] =~0x06;*/ break;
+     case 3:  z = 128 >> 3; /*data[i] =~0x5B;*/ break;
+     case 4:  z = 128 >> 4; /*data[i] =~0x4F;*/ break; 
+     case 5:  z = 128 >> 5; /*data[i] =~0x66;*/ break;
+     case 6:  z = 128 >> 6; /*data[i] =~0x6D;*/ break; 
+     case 7:  z = 128 >> 7; /*data[i] =~0x7D;*/ break; 
+     case 8:  z = 128 >> 8; /*data[i] =~0x07;*/ break; 
+     case 9:  z=0 ; k = 128 >> 0; /*data[i] =~0x7F;*/ break; 
+     case 10: z=0 ; k = 128 >> 1; /*data[i] =~0x6F;*/ break; 
+     case 11: z=0 ; k = 128 >> 2; /*data[i] =~0x7F;*/ break;
+     case 12: z=0 ; k = 128 >> 3; /*data[i] =~0x07;*/ break;
+     case 13: z=0 ; k = 128 >> 4;/* data[i] =~0x7D;*/ break; 
+     default: z = 0xff;
+    };
+   // data[i]=data[i];
+    uint8_t symBlock[3] = {   data[i], z/*, k */};
     
     // Send byte in spi
-    if (HAL_SPI_Transmit(&hspi1, &symBlock[0], 2, 100) != HAL_OK) {
+    if (HAL_SPI_Transmit(&hspi1, &symBlock[0] , 2, 1) != HAL_OK) {
       break;
     }
     osDelay(1);
@@ -169,7 +190,7 @@ void SendDataTo7SegDisplay(uint8_t *data, int length) {
     // Stop storage record in 74HC595 register. Save.
     setSpiCsHigh();
     osDelay(1);
-  }
+ }
 }
 /* USER CODE END 1 */
 
