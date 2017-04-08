@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"E:\IAR Systems\Embedded Workbench 7.5\common\bin\cspybat" -f "C:\Users\LeshijMain\wgtime\EWARM\settings\wgtime.wgtime.general.xcl" --backend -f "C:\Users\LeshijMain\wgtime\EWARM\settings\wgtime.wgtime.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "D:\wgtime\wgtime\EWARM\settings\wgtime.wgtime.general.xcl" --backend -f "D:\wgtime\wgtime\EWARM\settings\wgtime.wgtime.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"E:\IAR Systems\Embedded Workbench 7.5\common\bin\cspybat" -f "C:\Users\LeshijMain\wgtime\EWARM\settings\wgtime.wgtime.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\LeshijMain\wgtime\EWARM\settings\wgtime.wgtime.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "D:\wgtime\wgtime\EWARM\settings\wgtime.wgtime.general.xcl" "--debug_file=%~1" --backend -f "D:\wgtime\wgtime\EWARM\settings\wgtime.wgtime.driver.xcl" 
 
 @echo off 
 :end

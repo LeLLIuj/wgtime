@@ -55,6 +55,7 @@
 /* USER CODE END 0 */
 
 SPI_HandleTypeDef hspi1;
+SPI_HandleTypeDef hspi2;
 DMA_HandleTypeDef hdma_spi1_tx;
 
 /* SPI1 init function */
@@ -74,6 +75,28 @@ void MX_SPI1_Init(void)
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 10;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+}
+
+/* SPI1 init function */
+void MX_SPI2_Init(void)
+{
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_HIGH;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_128;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_LSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
   {
     Error_Handler();
   }
@@ -101,26 +124,48 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    /* Peripheral DMA init*/
-  /*
-    hdma_spi1_tx.Instance = DMA1_Channel3;
-    hdma_spi1_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
-    hdma_spi1_tx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_spi1_tx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_spi1_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_spi1_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_spi1_tx.Init.Mode = DMA_NORMAL;
-    hdma_spi1_tx.Init.Priority = DMA_PRIORITY_LOW;
-    if (HAL_DMA_Init(&hdma_spi1_tx) != HAL_OK)
-    {
-      Error_Handler();
-    }*/
-
-    //__HAL_LINKDMA(spiHandle,hdmatx,hdma_spi1_tx);
-
   /* USER CODE BEGIN SPI1_MspInit 1 */
 
   /* USER CODE END SPI1_MspInit 1 */
+  }
+
+  if(spiHandle->Instance==SPI2)
+  {
+  /* USER CODE BEGIN SPI2_MspInit 0 */
+
+  /* USER CODE END SPI2_MspInit 0 */
+    /* Peripheral clock enable */
+    __HAL_RCC_SPI2_CLK_ENABLE();
+  
+    /**SPI2 GPIO Configuration    
+    PB13     ------> SPI2_SCK
+    PB14     ------> SPI2_MISO 
+    PB15     ------> SPI2_MOSI
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    /**Chip Select SPI GPIO Configuration  
+    */
+    GPIO_InitStruct.Pin = GPIO_Pin_12;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    /**IRQ SPI GPIO Configuration  
+    */
+    GPIO_InitStruct.Pin = GPIO_Pin_8;
+    GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    
+  /* USER CODE BEGIN SPI2_MspInit 1 */
+
+  /* USER CODE END SPI2_MspInit 1 */
   }
 }
 
@@ -140,6 +185,25 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
     PA7     ------> SPI1_MOSI 
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_5|GPIO_PIN_7);
+
+    /* Peripheral DMA DeInit*/
+    HAL_DMA_DeInit(spiHandle->hdmatx);
+  }
+
+  if(spiHandle->Instance==SPI2)
+  {
+  /* USER CODE BEGIN SPI2_MspDeInit 0 */
+
+  /* USER CODE END SPI2_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_SPI2_CLK_DISABLE();
+  
+    /**SPI2 GPIO Configuration    
+    PB13     ------> SPI2_SCK
+    PB14     ------> SPI2_MISO 
+    PB15     ------> SPI2_MOSI
+    */
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15);
 
     /* Peripheral DMA DeInit*/
     HAL_DMA_DeInit(spiHandle->hdmatx);
@@ -194,6 +258,65 @@ void SendDataTo7SegDisplay(uint8_t *data, int length) {
 }
 /* USER CODE END 1 */
 
+
+/* USER CODE BEGIN 1 */
+/*
+ *@brief 
+ */
+uint8_t getByte_SPI2(void) {
+    uint8_t send_block[1] = { 0x00 }; //Dummy byte to generate clock
+    uint8_t read_block[1];
+    
+    if (HAL_SPI_Transmit(&hspi2, &send_block[0] , 1, 30) != HAL_OK) {
+      break;
+    }
+    
+    if (HAL_SPI_Receive(&hspi2, &read_block[0] , 1, 30) != HAL_OK) {
+      break;
+    }
+
+    return read_block[0]; //return received data
+}
+
+
+/*
+ *@brief 
+ */
+void sendByte_SPI2(uint8_t byte) {    // Send byte in spi
+    uint8_t send_block[1] = { byte };
+    if (HAL_SPI_Transmit(&hspi2, &send_block[0] , 1, 30) != HAL_OK) {
+      break;
+    }
+}
+
+
+/*
+ *@brief 
+ */
+uint8_t setSelect_SPI2(char state) {
+	if (state)
+	{
+		HAL_GPIO_WritePin(GPIOB, GPIO_Pin_12, GPIO_PIN_RESET);
+	}
+	else
+	{
+		HAL_GPIO_WritePin(GPIOB, GPIO_Pin_12, GPIO_PIN_SET);
+	}
+}
+
+
+/*
+ *@brief 
+ */
+char isIRQ_SPI2(void) {
+	// IRQ is low when data is ready to be received
+	if (HAL_GPIO_ReadPin(GPIOA, GPIO_Pin_8))
+	{
+		return 0;
+	}
+	return 1;
+}
+/* USER CODE END 1 */
 /**
   * @}
   */
