@@ -149,18 +149,18 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
 
     /**Chip Select SPI GPIO Configuration  
     */
-    GPIO_InitStruct.Pin = GPIO_Pin_12;
+    GPIO_InitStruct.Pin = GPIO_PIN_12;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_Init(GPIOB, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
     /**IRQ SPI GPIO Configuration  
     */
-    GPIO_InitStruct.Pin = GPIO_Pin_8;
+    GPIO_InitStruct.Pin = GPIO_PIN_8;
     GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
     
   /* USER CODE BEGIN SPI2_MspInit 1 */
@@ -219,7 +219,7 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
  */
 void SendDataTo7SegDisplay(uint8_t *data, int length) {
   int z=0;
-  int k=0;  
+  int k=0;
   for(int i = 0; i < length ; ++i) {
     // Start storage record in 74HC595 register
     setSpiCsLow();
@@ -268,11 +268,11 @@ uint8_t getByte_SPI2(void) {
     uint8_t read_block[1];
     
     if (HAL_SPI_Transmit(&hspi2, &send_block[0] , 1, 30) != HAL_OK) {
-      break;
+      
     }
     
     if (HAL_SPI_Receive(&hspi2, &read_block[0] , 1, 30) != HAL_OK) {
-      break;
+      
     }
 
     return read_block[0]; //return received data
@@ -285,7 +285,7 @@ uint8_t getByte_SPI2(void) {
 void sendByte_SPI2(uint8_t byte) {    // Send byte in spi
     uint8_t send_block[1] = { byte };
     if (HAL_SPI_Transmit(&hspi2, &send_block[0] , 1, 30) != HAL_OK) {
-      break;
+      
     }
 }
 
@@ -293,14 +293,14 @@ void sendByte_SPI2(uint8_t byte) {    // Send byte in spi
 /*
  *@brief 
  */
-uint8_t setSelect_SPI2(char state) {
+void setSelect_SPI2(char state) {
 	if (state)
 	{
-		HAL_GPIO_WritePin(GPIOB, GPIO_Pin_12, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
 	}
 	else
 	{
-		HAL_GPIO_WritePin(GPIOB, GPIO_Pin_12, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 	}
 }
 
@@ -310,7 +310,7 @@ uint8_t setSelect_SPI2(char state) {
  */
 char isIRQ_SPI2(void) {
 	// IRQ is low when data is ready to be received
-	if (HAL_GPIO_ReadPin(GPIOA, GPIO_Pin_8))
+	if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_8))
 	{
 		return 0;
 	}

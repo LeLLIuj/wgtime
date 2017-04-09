@@ -32,19 +32,32 @@
 #define TIMER_H
 
 #include <stdint.h>
+#include "cmsis_os.h"
 
+class Timer {
+private:
+  osTimerDef_t os_timer_def_timer_nfc_0;
+  bool _isTimerNfc0_Running;
+  osTimerId _timer_nfc;
+  
+  void TimerFinishing(void const *n);
+public:
+  Timer();
+  virtual ~Timer();
+  
+  /// \brief delay function
+  /// wait a specified time in mS
+  /// \param time time in mS to wait
+  void delay(const uint32_t time);
 
-/// \brief delay function
-/// wait a specified time in mS
-/// \param time time in mS to wait
-void delay(const uint32_t time);
+  /// \brief Set timeout
+  /// \param timeout timeout in mS
+  void setTimeOut(const uint32_t timeout);
 
-/// \brief Set timeout
-/// \param timeout timeout in mS
-void setTimeOut(const uint32_t timeout);
+  /// \brief test if timeout is expired.
+  /// \return true if timeout is expired.
+  bool isTimeOut(void);
+};
 
-/// \brief test if timeout is expired.
-/// \return true if timeout is expired.
-char isTimeOut(void);
 
 #endif

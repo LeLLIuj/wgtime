@@ -11,35 +11,36 @@
  *
  */
 
-#include "timer.h"
+#include "timer_nfc.h"
 #include "stm32f1xx_hal.h"
+#include "cmsis_os.h"
 
-char isTimerRunning = 0;
 
-void TimerFinishing(void const *n) {
-    isTimerRunning = 0;
+Timer::Timer() {
+  _isTimerNfc0_Running = false;
+  _timer_nfc = osTimerCreate(osTimer(timer_nfc_0), osTimerOnce, (void *)0);
+}
+Timer::~Timer() {
+  
 }
 
-osTimerDef(timer_nfc_0, TimerFinishing);
-osTimerId timer_nfc;
-
-void TimerNFC_Init()
-{
-  timer_nfc = osTimerCreate(osTimer(timer_nfc_0), osTimerOnce, (void *)0);
+void Timer::TimerFinishing(void const *n) {
+    _isTimerNfc0_Running = 0;
 }
 
-void TimerNFC_Delay(const uint32_t time)
+void Timer::delay(const uint32_t time)
 {
   osDelay(time);
 }
  
-void TimerNFC_setTimeOut(const uint32_t timeout)
+void Timer::setTimeOut(const uint32_t timeout)
 {
-  osTimerStart(timer_nfc, timeout);
+  _isTimerNfc0_Running = true;
+  osTimerStart(_timer_nfc, timeout);
 }
 
-char TimerNFC_isTimeOut(void)
+bool Timer::isTimeOut(void)
 {
-  return isTimerRunning;
+  return _isTimerNfc0_Running;
 }
 

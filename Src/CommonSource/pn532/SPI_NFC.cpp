@@ -16,7 +16,7 @@
 
 #include "spi.h"
 
-#include <SPI_NFC.h>
+#include "SPI_NFC.h"
 
 SPI_NFC::SPI_NFC()
 {

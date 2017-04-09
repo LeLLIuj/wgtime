@@ -72,7 +72,7 @@ void SendDataTo7SegDisplay(uint8_t *data, int length);
 
 uint8_t getByte_SPI2(void);
 void sendByte_SPI2(uint8_t byte);
-uint8_t setSelect_SPI2(char state);
+void setSelect_SPI2(char state);
 char isIRQ_SPI2(void);
 /* USER CODE END Prototypes */
 

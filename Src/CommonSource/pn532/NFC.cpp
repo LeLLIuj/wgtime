@@ -11,9 +11,24 @@
  *
  */
 
-#include <NFC.h>
+#include "NFC.h"
 
-#include <string.h>
+
+int strncmp(const char *cs, const char *ct, size_t count)
+{
+        unsigned char c1, c2;
+
+        while (count) {
+                c1 = *cs++;
+                c2 = *ct++;
+                if (c1 != c2)
+                        return c1 < c2 ? -1 : 1;
+                if (!c1)
+                        break;
+                count--;
+        }
+        return 0;
+}
 
 NFC::NFC()
 :
@@ -35,8 +50,8 @@ bool NFC::initializePN532(void)
 {
 	// Initialize PN532
 	// As the PN532 can be in sleep mode perfom 4 attempts to wake-up and initialize the PN532.
-	bool returnValue { true };
-	uint8_t retries { 4 } ;
+	bool returnValue = true;
+	uint8_t retries = 4;
 
 	while (retries != 0)
 	{
