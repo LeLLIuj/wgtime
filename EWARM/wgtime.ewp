@@ -319,6 +319,7 @@
           <state>$PROJ_DIR$/../Inc/Application</state>
           <state>$PROJ_DIR$/../Inc/BasicSource</state>
           <state>$PROJ_DIR$/../Inc/CommonSource</state>
+          <state>$PROJ_DIR$/../Inc/CommonSource/PN532</state>
           <state>$PROJ_DIR$/../Inc/Core</state>
           <state>$PROJ_DIR$/../Drivers/STM32F1xx_HAL_Driver/Inc</state>
           <state>$PROJ_DIR$/../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy</state>
@@ -1024,6 +1025,27 @@
       </group>
       <group>
         <name>CommonSource</name>
+        <group>
+          <name>PN532</name>
+          <file>
+            <name>$PROJ_DIR$\..\Src\CommonSource\pn532\NFC.cpp</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\Src\CommonSource\pn532\NFC.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\Src\CommonSource\pn532\SPI_NFC.cpp</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\Src\CommonSource\pn532\SPI_NFC.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\Src\CommonSource\pn532\timer_nfc.cpp</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\Src\CommonSource\pn532\timer_nfc.h</name>
+          </file>
+        </group>
         <file>
           <name>$PROJ_DIR$\..\Src\CommonSource\defaultTask.c</name>
         </file>

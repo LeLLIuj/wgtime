@@ -1209,6 +1209,27 @@
       </group>
       <group>
         <name>CommonSource</name>
+        <group>
+          <name>PN532</name>
+          <file>
+            <name>$PROJ_DIR$\..\Src\CommonSource\pn532\NFC.cpp</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\Src\CommonSource\pn532\NFC.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\Src\CommonSource\pn532\SPI_NFC.cpp</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\Src\CommonSource\pn532\SPI_NFC.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\Src\CommonSource\pn532\timer_nfc.cpp</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\Src\CommonSource\pn532\timer_nfc.h</name>
+          </file>
+        </group>
         <file>
           <name>$PROJ_DIR$\..\Src\CommonSource\defaultTask.c</name>
         </file>

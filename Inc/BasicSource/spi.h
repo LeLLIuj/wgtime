@@ -65,10 +65,15 @@ extern SPI_HandleTypeDef hspi1;
 extern void Error_Handler(void);
 
 void MX_SPI1_Init(void);
+void MX_SPI2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 void SendDataTo7SegDisplay(uint8_t *data, int length);
 
+uint8_t getByte_SPI2(void);
+void sendByte_SPI2(uint8_t byte);
+void setSelect_SPI2(char state);
+char isIRQ_SPI2(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

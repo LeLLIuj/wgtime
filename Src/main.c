@@ -103,6 +103,7 @@ int main(void)
   MX_WWDG_Init();
   MX_RTC_Init();
   MX_SPI1_Init();
+  MX_SPI2_Init();
 
   /* USER CODE BEGIN 2 */
 
